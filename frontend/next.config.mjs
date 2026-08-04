@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     remotePatterns: [],
   },
+  transpilePackages: ["firebase-admin", "jose", "jwks-rsa"],
 
   // API routes are same-origin — no rewrites needed.
 
