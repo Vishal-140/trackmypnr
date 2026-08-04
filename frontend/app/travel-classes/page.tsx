@@ -4,15 +4,25 @@ import { AdSlot } from "@/components/AdSlot";
 import { LastUpdated } from "@/components/LastUpdated";
 import { RouteLineDivider } from "@/components/RouteLineDivider";
 
+const SITE_URL = "https://trackmypnr.co.in";
+const OG_IMAGE = `${SITE_URL}/og-default.png`;
+const PAGE_URL = `${SITE_URL}/travel-classes`;
+
 export const metadata: Metadata = {
   title: "Indian Railways Travel Classes Explained: 1A to General",
   description:
     "Every Indian Railways travel class explained — 1A, 2A, 3A, 3E, EC, CC, Sleeper, and General — with berth layouts, amenities, and who each class suits best.",
   alternates: { canonical: "/travel-classes" },
+  robots: { index: true, follow: true },
   openGraph: {
     title: "Indian Railways Travel Classes Explained: 1A to General",
     description: "Every Indian Railways travel class explained, from 1A down to General.",
     url: "/travel-classes",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Travel Classes Explained — trackmypnr" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [OG_IMAGE],
   },
 };
 
@@ -89,9 +99,31 @@ const CLASSES: TravelClass[] = [
   },
 ];
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "Travel Classes", item: PAGE_URL },
+  ],
+};
+
 export default function TravelClassesPage() {
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+
+      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-ink-muted">
+        <ol className="flex items-center gap-1.5">
+          <li><Link href="/" className="hover:text-brand">Home</Link></li>
+          <li aria-hidden="true">›</li>
+          <li aria-current="page" className="text-ink">Travel Classes</li>
+        </ol>
+      </nav>
+
       <h1 className="font-display text-3xl font-bold text-ink sm:text-4xl">
         Indian Railways Travel Classes Explained
       </h1>

@@ -5,22 +5,78 @@ import { LastUpdated } from "@/components/LastUpdated";
 import { TicketPnrIllustration } from "@/components/TicketPnrIllustration";
 import { RouteLineDivider } from "@/components/RouteLineDivider";
 
+const SITE_URL = "https://trackmypnr.co.in";
+const OG_IMAGE = `${SITE_URL}/og-default.png`;
+const PAGE_URL = `${SITE_URL}/pnr-status-guide`;
+
 export const metadata: Metadata = {
   title: "PNR Status Guide: What It Means & How to Check It",
   description:
     "A complete guide to your Indian Railways PNR number — what it is, where to find it, what chart preparation means, and how to read every status: CNF, RAC, and WL.",
   alternates: { canonical: "/pnr-status-guide" },
+  robots: { index: true, follow: true },
   openGraph: {
     title: "PNR Status Guide: What It Means & How to Check It",
     description:
       "What a PNR is, where to find it, what chart preparation means, and how to read every status.",
     url: "/pnr-status-guide",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "PNR Status Guide — trackmypnr" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    images: [OG_IMAGE],
+  },
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "PNR Status Guide", item: PAGE_URL },
+  ],
+};
+
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "PNR Status Guide: What It Means and How to Check It",
+  description:
+    "A complete guide to your Indian Railways PNR number — what it is, where to find it, what chart preparation means, and how to read every status: CNF, RAC, and WL.",
+  url: PAGE_URL,
+  datePublished: "2026-08-01",
+  dateModified: "2026-08-01",
+  author: { "@type": "Organization", name: "trackmypnr", url: SITE_URL },
+  publisher: {
+    "@type": "Organization",
+    name: "trackmypnr",
+    url: SITE_URL,
+    logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+  },
+  image: OG_IMAGE,
+  mainEntityOfPage: { "@type": "WebPage", "@id": PAGE_URL },
 };
 
 export default function PnrStatusGuidePage() {
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+
+      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-ink-muted">
+        <ol className="flex items-center gap-1.5">
+          <li><Link href="/" className="hover:text-brand">Home</Link></li>
+          <li aria-hidden="true">›</li>
+          <li aria-current="page" className="text-ink">PNR Status Guide</li>
+        </ol>
+      </nav>
+
       <h1 className="font-display text-3xl font-bold text-ink sm:text-4xl">
         PNR Status Guide: What It Means and How to Check It
       </h1>

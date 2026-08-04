@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
+    <footer className="border-t border-border bg-surface" role="contentinfo">
       <div className="mx-auto max-w-content px-4 py-10 sm:px-6">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           <div>
@@ -12,7 +12,7 @@ export function Footer() {
               no clutter, no guesswork.
             </p>
           </div>
-          <div>
+          <nav aria-label="Footer navigation">
             <p className="text-sm font-semibold text-ink">Guides</p>
             <ul className="mt-2 space-y-2 text-sm text-ink-muted">
               <li>
@@ -36,7 +36,7 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </nav>
           <div>
             <p className="text-sm font-semibold text-ink">Legal</p>
             <ul className="mt-2 space-y-2 text-sm text-ink-muted">

@@ -4,16 +4,26 @@ import { AdSlot } from "@/components/AdSlot";
 import { LastUpdated } from "@/components/LastUpdated";
 import { RouteLineDivider } from "@/components/RouteLineDivider";
 
+const SITE_URL = "https://trackmypnr.co.in";
+const OG_IMAGE = `${SITE_URL}/og-default.png`;
+const PAGE_URL = `${SITE_URL}/waitlist-types`;
+
 export const metadata: Metadata = {
   title: "Waitlist Types Explained: GNWL, TQWL, RLWL, PQWL & More",
   description:
     "Every Indian Railways waitlist type explained in plain language — GNWL, TQWL, RLWL, PQWL, and RLGN — including which ones typically confirm and which rarely do.",
   alternates: { canonical: "/waitlist-types" },
+  robots: { index: true, follow: true },
   openGraph: {
     title: "Waitlist Types Explained: GNWL, TQWL, RLWL, PQWL & More",
     description:
       "Every Indian Railways waitlist type explained, including which ones typically confirm.",
     url: "/waitlist-types",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Waitlist Types Explained — trackmypnr" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [OG_IMAGE],
   },
 };
 
@@ -62,6 +72,15 @@ const WAITLIST_TYPES: WaitlistType[] = [
   },
 ];
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "Waitlist Types", item: PAGE_URL },
+  ],
+};
+
 const waitlistFaqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -80,11 +99,23 @@ export default function WaitlistTypesPage() {
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(waitlistFaqJsonLd) }}
       />
 
+      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-ink-muted">
+        <ol className="flex items-center gap-1.5">
+          <li><Link href="/" className="hover:text-brand">Home</Link></li>
+          <li aria-hidden="true">›</li>
+          <li aria-current="page" className="text-ink">Waitlist Types</li>
+        </ol>
+      </nav>
+
       <h1 className="font-display text-3xl font-bold text-ink sm:text-4xl">
-        Waitlist Types Explained: GNWL, TQWL, RLWL, PQWL & RLGN
+        Waitlist Types Explained: GNWL, TQWL, RLWL, PQWL &amp; RLGN
       </h1>
       <div className="mt-3">
         <LastUpdated date="2026-08-01" />

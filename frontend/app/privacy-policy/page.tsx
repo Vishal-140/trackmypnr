@@ -2,11 +2,23 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LastUpdated } from "@/components/LastUpdated";
 
+const OG_IMAGE = "https://trackmypnr.co.in/og-default.png";
+
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "How trackmypnr collects, uses, and protects your data, including cookie and advertising disclosures.",
   alternates: { canonical: "/privacy-policy" },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "Privacy Policy | trackmypnr",
+    description: "How trackmypnr collects, uses, and protects your data, including cookie and advertising disclosures.",
+    url: "/privacy-policy",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Privacy Policy — trackmypnr" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [OG_IMAGE],
+  },
 };
 
 export default function PrivacyPolicyPage() {

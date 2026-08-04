@@ -26,7 +26,7 @@ export function Header() {
           trackmypnr
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-6 md:flex" aria-label="Main navigation">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -50,7 +50,7 @@ export function Header() {
       </div>
 
       {open && (
-        <nav className="border-t border-border bg-surface px-4 py-3 md:hidden">
+        <nav className="border-t border-border bg-surface px-4 py-3 md:hidden" aria-label="Mobile navigation">
           <ul className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>

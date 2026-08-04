@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
 import { LastUpdated } from "@/components/LastUpdated";
 
+const OG_IMAGE = "https://trackmypnr.co.in/og-default.png";
+
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "The terms governing your use of trackmypnr.",
   alternates: { canonical: "/terms" },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "Terms of Service | trackmypnr",
+    description: "The terms governing your use of trackmypnr — the free, independent Indian Railways PNR status checker.",
+    url: "/terms",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "Terms of Service — trackmypnr" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [OG_IMAGE],
+  },
 };
 
 export default function TermsPage() {

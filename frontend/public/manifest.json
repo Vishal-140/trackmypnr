@@ -1,0 +1,33 @@
+{
+  "name": "trackmypnr",
+  "short_name": "TrackMyPNR",
+  "description": "Check your Indian Railways PNR status instantly — free, fast, no clutter.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#1b3a6b",
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["travel", "utilities"],
+  "screenshots": [
+    {
+      "src": "/og-default.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "label": "trackmypnr — PNR Status Checker"
+    }
+  ]
+}

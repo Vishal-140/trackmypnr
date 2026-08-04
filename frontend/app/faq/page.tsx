@@ -3,15 +3,25 @@ import Link from "next/link";
 import { AdSlot } from "@/components/AdSlot";
 import { LastUpdated } from "@/components/LastUpdated";
 
+const SITE_URL = "https://trackmypnr.co.in";
+const OG_IMAGE = `${SITE_URL}/og-default.png`;
+const PAGE_URL = `${SITE_URL}/faq`;
+
 export const metadata: Metadata = {
   title: "PNR Status FAQ — Chart Preparation, Refunds, Validity & More",
   description:
     "Answers to the most common PNR status questions: chart preparation timing, TDR and auto-refunds, PNR validity, RAC vs waitlist, and how confirmation probability is calculated.",
   alternates: { canonical: "/faq" },
+  robots: { index: true, follow: true },
   openGraph: {
     title: "PNR Status FAQ — Chart Preparation, Refunds, Validity & More",
     description: "Answers to the most common PNR status questions.",
     url: "/faq",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "PNR Status FAQ — trackmypnr" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [OG_IMAGE],
   },
 };
 
@@ -181,6 +191,15 @@ const FAQ_ITEMS: FaqItem[] = [
   },
 ];
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+    { "@type": "ListItem", position: 2, name: "FAQ", item: PAGE_URL },
+  ],
+};
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -199,8 +218,20 @@ export default function FaqPage() {
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+
+      <nav aria-label="Breadcrumb" className="mb-6 text-sm text-ink-muted">
+        <ol className="flex items-center gap-1.5">
+          <li><Link href="/" className="hover:text-brand">Home</Link></li>
+          <li aria-hidden="true">›</li>
+          <li aria-current="page" className="text-ink">FAQ</li>
+        </ol>
+      </nav>
 
       <h1 className="font-display text-3xl font-bold text-ink sm:text-4xl">
         Frequently Asked Questions
