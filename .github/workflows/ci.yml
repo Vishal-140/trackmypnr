@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run pytest
+        run: python -m pytest tests/ -v
+        # NOTE: these run against the mocked-provider unit/API test suite.
+        # To also exercise real Firestore semantics, start the Firebase Local
+        # Emulator Suite in this job (firebase-tools + `firebase emulators:exec`)
+        # and set FIRESTORE_EMULATOR_HOST before this step — deferred until
+        # the Firebase project exists (Section 12 build order).
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Run vitest
+        run: npm run test
+      - name: Type check
+        run: npx tsc --noEmit

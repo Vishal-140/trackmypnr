@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Neutrals — cool paper white, not the warm-cream/serif combo that reads
+     as a generic AI template. */
+  --color-bg: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-ink: #14181f;
+  --color-ink-muted: #5b6472;
+  --color-border: #e2e5ea;
+
+  /* Brand — deep railway-signal blue, one accent used sparingly. */
+  --color-brand: #1b3a6b;
+  --color-brand-dark: #12294d;
+  --color-brand-light: #eef2f8;
+  --color-accent: #f0a202;
+
+  /* Status colors — consistent everywhere CNF/RAC/WL appear. */
+  --color-cnf: #157a52;
+  --color-cnf-bg: #e7f5ee;
+  --color-rac: #b3690f;
+  --color-rac-bg: #fbf0e0;
+  --color-wl: #c23a58;
+  --color-wl-bg: #fbe9ed;
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* Visible keyboard focus everywhere — accessibility floor, never removed. */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Route-line signature motif ---------------------------------------
+   A thin dashed "railway line" with small circular "station" stops. Used
+   sparingly as a section divider (horizontal) and as the spine of
+   HistoryTimeline (vertical, where the sequence is real information, not
+   decoration). Grounded in the domain per Section 19 rather than a generic
+   gradient/emoji treatment. */
+.route-line-h {
+  position: relative;
+  height: 2px;
+  background-image: linear-gradient(
+    to right,
+    var(--color-border) 0,
+    var(--color-border) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  background-size: 12px 2px;
+  background-repeat: repeat-x;
+}
+
+.route-line-h::before,
+.route-line-h::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--color-brand);
+  transform: translateY(-50%);
+}
+
+.route-line-h::before {
+  left: 0;
+}
+
+.route-line-h::after {
+  right: 0;
+  background: var(--color-accent);
+}
