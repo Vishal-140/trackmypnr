@@ -68,10 +68,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon.ico?v=99", sizes: "any" },
+      { url: "/favicon.png?v=99", type: "image/png", sizes: "32x32" },
+      { url: "/icon.png?v=99", type: "image/png", sizes: "512x512" },
     ],
+    shortcut: "/favicon.ico?v=99",
     apple: [
-      { url: "/logo.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-icon.png?v=99", sizes: "180x180", type: "image/png" },
     ],
   },
   robots: {
@@ -130,6 +133,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-IN" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <head>
+        {/* Favicon — explicit link overrides any cached old icon */}
+        <link rel="icon" href="/favicon.ico?v=99" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=99" />
+        <link rel="shortcut icon" href="/favicon.ico?v=99" />
+        <link rel="apple-touch-icon" href="/apple-icon.png?v=99" />
         {/* Preconnect hints — improve TTFB for critical third-party origins */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

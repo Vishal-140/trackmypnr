@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Bookmark, BookmarkCheck, TrainFront, MapPin, Wallet, Calendar } from "lucide-react";
+import { Bookmark, BookmarkCheck, TrainFront, MapPin, Wallet, Calendar, Share2, Check } from "lucide-react";
 import type { NormalizedPNRStatus } from "@/lib/types";
 import { berthCodeLabel, formatISTDateOnly, getStatusCategory } from "@/lib/utils";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -24,6 +24,8 @@ export function PNRStatusCard({
   showSaveButton = true,
 }: PNRStatusCardProps) {
   const [justSaved, setJustSaved] = useState(false);
+  const [copied, setCopied] = useState(false);
+
   const lead = status.passengers[0];
   const category = getStatusCategory(lead?.current_status);
   const showGauge =
@@ -35,6 +37,43 @@ export function PNRStatusCard({
     await onSave();
     setJustSaved(true);
     window.setTimeout(() => setJustSaved(false), 1600);
+  }
+
+  async function handleShare() {
+    const shareUrl = typeof window !== "undefined"
+      ? `${window.location.origin}/${status.pnr_number}`
+      : `https://www.trackmypnr.co.in/${status.pnr_number}`;
+
+    // Only use navigator.share on mobile/touch devices to avoid Chrome desktop quirks
+    const isMobile =
+      typeof navigator !== "undefined" &&
+      typeof navigator.share === "function" &&
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: none)").matches;
+
+    if (isMobile) {
+      try {
+        await navigator.share({
+          title: `PNR Status ${status.pnr_number} | trackmypnr`,
+          url: shareUrl,
+        });
+        return;
+      } catch {
+        // Fall through to clipboard on cancel/error
+      }
+    }
+
+    // Desktop: copy link to clipboard
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        setCopied(true);
+        window.setTimeout(() => setCopied(false), 2500);
+      } catch {
+        // Last resort: prompt
+        window.prompt("Copy this link:", shareUrl);
+      }
+    }
   }
 
   return (
@@ -110,8 +149,22 @@ export function PNRStatusCard({
         </div>
       )}
 
-      {showSaveButton && onSave && (
-        <div className="mt-6 flex justify-center">
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <button
+          type="button"
+          onClick={handleShare}
+          className="flex items-center gap-2 rounded-xl border border-border bg-surface px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
+          style={{ minHeight: 44 }}
+        >
+          {copied ? (
+            <Check className="h-4 w-4 text-status-cnf" aria-hidden="true" />
+          ) : (
+            <Share2 className="h-4 w-4 text-brand" aria-hidden="true" />
+          )}
+          {copied ? "Link Copied!" : "Share PNR Status"}
+        </button>
+
+        {showSaveButton && onSave && (
           <button
             onClick={handleSave}
             disabled={isSaving || isSaved}
@@ -125,8 +178,8 @@ export function PNRStatusCard({
             )}
             {isSaved || justSaved ? "Saved to My PNRs" : isSaving ? "Saving…" : "Save this PNR"}
           </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

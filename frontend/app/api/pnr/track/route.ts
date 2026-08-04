@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
     return errorJson("INTERNAL_ERROR", "An unexpected error occurred.", 500);
   }
 
-  // Write to Firestore
+  // Write to Firestore (deduplicate if already tracked by this user)
   const db = getAdminFirestore();
   const now = new Date().toISOString();
   const docData = {
@@ -80,9 +80,33 @@ export async function POST(req: NextRequest) {
     createdAt: now,
   };
 
-  const docRef = await db.collection(TRACKED_PNRS_COLLECTION).add(docData);
+  const existingSnap = await db
+    .collection(TRACKED_PNRS_COLLECTION)
+    .where("userId", "==", uid)
+    .where("pnrNumber", "==", pnrNumber)
+    .get();
 
-  // First history snapshot
+  let docRef;
+  let createdAt = now;
+
+  if (!existingSnap.empty) {
+    // Already tracked — update existing document instead of creating a duplicate
+    docRef = existingSnap.docs[0].ref;
+    const existingData = existingSnap.docs[0].data();
+    createdAt = existingData.createdAt ?? now;
+
+    await docRef.update({
+      lastStatus: status,
+      lastCheckedAt: now,
+      journeyDate: status.journey_date ?? null,
+      active: docData.active,
+    });
+  } else {
+    // New tracked PNR
+    docRef = await db.collection(TRACKED_PNRS_COLLECTION).add(docData);
+  }
+
+  // Record history snapshot
   await docRef.collection(HISTORY_SUBCOLLECTION).add({
     statusSnapshot: status,
     checkedAt: now,
@@ -97,7 +121,7 @@ export async function POST(req: NextRequest) {
       journey_date: status.journey_date ?? null,
       active: docData.active,
       last_checked_at: now,
-      created_at: now,
+      created_at: createdAt,
     },
     { status: 201 }
   );

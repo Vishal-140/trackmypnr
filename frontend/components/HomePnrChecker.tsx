@@ -11,7 +11,11 @@ import { checkPnr, trackPnr } from "@/lib/api";
 import { ApiError } from "@/lib/types";
 import type { NormalizedPNRStatus } from "@/lib/types";
 
-export function HomePnrChecker() {
+interface HomePnrCheckerProps {
+  initialPnr?: string;
+}
+
+export function HomePnrChecker({ initialPnr }: HomePnrCheckerProps = {}) {
   const [status, setStatus] = useState<NormalizedPNRStatus | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,6 +35,9 @@ export function HomePnrChecker() {
     try {
       const result = await checkPnr(pnrNumber);
       setStatus(result);
+      if (typeof window !== "undefined" && window.location.pathname !== `/${pnrNumber}`) {
+        window.history.pushState({}, "", `/${pnrNumber}`);
+      }
     } catch (err) {
       if (err instanceof ApiError) {
         setError(
@@ -47,6 +54,12 @@ export function HomePnrChecker() {
       setSlowNotice(false);
     }
   }
+
+  useEffect(() => {
+    if (initialPnr) {
+      handleCheck(initialPnr);
+    }
+  }, [initialPnr]);
 
   const [savedRefresh, setSavedRefresh] = useState(0);
 
@@ -68,7 +81,7 @@ export function HomePnrChecker() {
   return (
     <div className="flex flex-col items-center gap-6">
       <div className="w-full max-w-2xl">
-        <PNRInputForm onSubmit={handleCheck} isLoading={isLoading} />
+        <PNRInputForm onSubmit={handleCheck} isLoading={isLoading} initialValue={initialPnr ?? ""} />
       </div>
 
       {isLoading && (
