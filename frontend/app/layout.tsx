@@ -5,7 +5,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CookieConsent } from "@/components/CookieConsent";
 import { Providers } from "@/components/Providers";
-import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
 const spaceGrotesk = Space_Grotesk({
@@ -135,6 +134,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NG1S4KSNJF"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-NG1S4KSNJF');
+            `,
+          }}
+        />
       </head>
       <body className="flex min-h-screen flex-col font-body">
         {/* Sitewide JSON-LD schemas */}
@@ -153,9 +166,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </Providers>
         <CookieConsent />
-
-        {/* Google Analytics — loads after interactive, consent-aware */}
-        <GoogleAnalytics />
       </body>
     </html>
   );
