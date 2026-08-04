@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     remotePatterns: [],
   },
+  serverExternalPackages: ["firebase-admin"],
   // API routes are same-origin — no rewrites needed.
 
   /**
