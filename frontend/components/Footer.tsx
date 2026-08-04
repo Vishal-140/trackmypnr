@@ -62,9 +62,10 @@ export function Footer() {
           sourced from a third-party API and is provided for informational convenience only —
           always verify critical travel decisions against official IRCTC channels.
         </p>
-        <p className="mt-3 text-xs text-ink-muted">
-          © {new Date().getFullYear()} trackmypnr. All rights reserved.
-        </p>
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-ink-muted">
+          <p>© {new Date().getFullYear()} trackmypnr. All rights reserved.</p>
+          <p className="font-medium text-ink">Developed by Vishal Kumar Chaurasia ❤️</p>
+        </div>
       </div>
     </footer>
   );
