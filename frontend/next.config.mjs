@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     remotePatterns: [],
   },
+  // API routes are same-origin — no rewrites needed.
 };
 
 export default nextConfig;
-

@@ -7,8 +7,6 @@ import type {
 } from "@/lib/types";
 import { ApiError } from "@/lib/types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
-
 async function request<T>(
   path: string,
   options: RequestInit & { auth?: boolean } = {}
@@ -26,7 +24,8 @@ async function request<T>(
     }
   }
 
-  const res = await fetch(`${API_BASE_URL}${path}`, { ...rest, headers: finalHeaders });
+  // All API routes are same-origin now (Next.js API routes in /app/api/).
+  const res = await fetch(path, { ...rest, headers: finalHeaders });
 
   if (!res.ok) {
     let body: ApiErrorBody;
