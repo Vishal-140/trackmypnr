@@ -18,7 +18,7 @@ export function GoogleAnalytics() {
     // Avoid re‑initialisation
     if ((window as any).gtag) return;
     (window as any).dataLayer = (window as any).dataLayer || [];
-    const gtag = function () {
+    const gtag = function (...args: any[]) {
       (window as any).dataLayer.push(arguments);
     };
     (window as any).gtag = gtag;
@@ -55,3 +55,5 @@ export function GoogleAnalytics() {
     />
   );
 }
+
+export default GoogleAnalytics;

@@ -7,7 +7,7 @@
  * Body: { pnr_number: string }  (exactly 10 digits)
  * Returns: TrackedPNR  (201)
  */
-import { NextRequest } from "next/server";
+export const runtime = 'nodejs';
 import {
   checkPnrCached,
   errorJson,
@@ -21,7 +21,7 @@ import {
   HISTORY_SUBCOLLECTION,
 } from "@/lib/firebase-admin";
 import type { NormalizedPNRStatus } from "@/lib/types";
-
+import { NextRequest } from 'next/server';
 function isActive(journeyDate: string | null | undefined): boolean {
   if (!journeyDate) return true;
   return new Date(journeyDate).getTime() >= Date.now();

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import SavedPNRs from "@/components/SavedPNRs";
 import { AlertTriangle } from "lucide-react";
 import { PNRInputForm } from "@/components/PNRInputForm";
 import { PNRStatusCard } from "@/components/PNRStatusCard";
@@ -47,12 +48,16 @@ export function HomePnrChecker() {
     }
   }
 
+  const [savedRefresh, setSavedRefresh] = useState(0);
+
   async function handleSave() {
     if (!status) return;
     setIsSaving(true);
     try {
       await trackPnr(status.pnr_number);
       setIsSaved(true);
+      // trigger refresh of saved list
+      setSavedRefresh((prev) => prev + 1);
     } catch {
       setError("Couldn't save this PNR right now — please try again.");
     } finally {
@@ -91,7 +96,7 @@ export function HomePnrChecker() {
       {!isLoading && status && (
         <>
           <PNRStatusCard status={status} onSave={handleSave} isSaved={isSaved} isSaving={isSaving} />
-          <AdSlot slotId="homepage-below-result" className="max-w-2xl" />
+          <SavedPNRs onTrack={handleCheck} />
         </>
       )}
     </div>
