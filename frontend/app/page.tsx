@@ -1,9 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, Gauge, Bookmark, TrainFront } from "lucide-react";
-import { HomePnrChecker } from "@/components/HomePnrChecker";
+const HomePnrChecker = dynamic(() => import('@/components/HomePnrChecker').then(mod => mod.HomePnrChecker), {
+  loading: () => <SkeletonLoader />, // fallback UI while loading
+  ssr: false,
+});
 import { RouteLineDivider } from "@/components/RouteLineDivider";
+import dynamic from 'next/dynamic';
+import { SkeletonLoader } from '@/components/SkeletonLoader';
 
+const FeatureCard = dynamic(() => import('@/components/FeatureCard'), {
+  loading: () => <SkeletonLoader />, // fallback UI while loading
+  ssr: false,
+});
+
+const LinkCard = dynamic(() => import('@/components/LinkCard'), {
+  loading: () => <SkeletonLoader />, // fallback UI while loading
+  ssr: false,
+});
 export const metadata: Metadata = {
   title: "Check PNR Status Instantly & Free",
   description:
@@ -116,43 +130,6 @@ export default function HomePage() {
   );
 }
 
-function FeatureCard({
-  icon,
-  title,
-  description,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-border bg-surface p-6">
-      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-light text-brand">
-        {icon}
-      </div>
-      <h3 className="mt-4 font-display text-base font-semibold text-ink">{title}</h3>
-      <p className="mt-1.5 text-sm text-ink-muted">{description}</p>
-    </div>
-  );
-}
 
-function LinkCard({
-  href,
-  title,
-  description,
-}: {
-  href: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="block rounded-2xl border border-border bg-surface p-6 transition-colors hover:border-brand"
-    >
-      <h3 className="font-display text-base font-semibold text-ink">{title}</h3>
-      <p className="mt-1.5 text-sm text-ink-muted">{description}</p>
-      <span className="mt-3 inline-block text-sm font-medium text-brand">Read the guide →</span>
-    </Link>
-  );
-}
+
+

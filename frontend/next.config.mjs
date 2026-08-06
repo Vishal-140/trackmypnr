@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     remotePatterns: [],
   },
-  transpilePackages: ["firebase-admin", "jose", "jwks-rsa"],
+  serverExternalPackages: ["firebase-admin", "jose", "jwks-rsa"],
 
   // API routes are same-origin — no rewrites needed.
 
@@ -52,6 +52,15 @@ const nextConfig = {
       },
     ];
   },
+  experimental: { optimizePackageImports: ["lucide-react"] },
 };
 
-export default nextConfig;
+import createBundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzer = createBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+export default withBundleAnalyzer(nextConfig);
+
+

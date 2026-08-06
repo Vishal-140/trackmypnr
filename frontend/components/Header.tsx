@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X, TrainFront } from "lucide-react";
 
-import Image from "next/image";
+
 
 const NAV_LINKS = [
   { href: "/", label: "Check PNR" },
@@ -23,13 +23,12 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-surface/90 backdrop-blur">
       <div className="mx-auto flex max-w-content items-center justify-between px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5 font-display text-lg font-bold text-ink">
-          <Image
-            src="/logo.png"
+          <img
+            src="/logo.svg"
             alt="trackmypnr logo"
             width={32}
             height={32}
             className="h-8 w-8 rounded-lg object-contain"
-            priority
           />
           trackmypnr
         </Link>
