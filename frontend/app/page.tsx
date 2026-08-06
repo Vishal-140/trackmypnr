@@ -1,23 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, Gauge, Bookmark, TrainFront } from "lucide-react";
-const HomePnrChecker = dynamic(() => import('@/components/HomePnrChecker').then(mod => mod.HomePnrChecker), {
-  loading: () => <SkeletonLoader />, // fallback UI while loading
-  ssr: false,
-});
+import { HomePnrChecker } from '@/components/HomePnrChecker';
 import { RouteLineDivider } from "@/components/RouteLineDivider";
-import dynamic from 'next/dynamic';
-import { SkeletonLoader } from '@/components/SkeletonLoader';
 
-const FeatureCard = dynamic(() => import('@/components/FeatureCard'), {
-  loading: () => <SkeletonLoader />, // fallback UI while loading
-  ssr: false,
-});
 
-const LinkCard = dynamic(() => import('@/components/LinkCard'), {
-  loading: () => <SkeletonLoader />, // fallback UI while loading
-  ssr: false,
-});
+
+import FeatureCard from '@/components/FeatureCard';
+
+import LinkCard from '@/components/LinkCard';
 export const metadata: Metadata = {
   title: "Check PNR Status Instantly & Free",
   description:
