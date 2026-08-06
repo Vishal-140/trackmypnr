@@ -12,7 +12,9 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { pnr } = await params;
   if (!isValidPnr(pnr)) {
-    return {};
+    return {
+      robots: { index: false, follow: false },
+    };
   }
   const title = `PNR Status ${pnr}`;
   const description = `Check real-time Indian Railways PNR status and confirmation probability for PNR ${pnr}.`;
@@ -37,8 +39,24 @@ export default async function PnrPage({ params }: PageProps) {
     notFound();
   }
 
+  const pnrTripJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TrainTrip",
+    name: `Indian Railways PNR Enquiry ${pnr}`,
+    description: `Real-time PNR status lookup, confirmation probability, and berth details for PNR number ${pnr}.`,
+    url: `https://trackmypnr.co.in/${pnr}`,
+    provider: {
+      "@type": "Organization",
+      name: "Indian Railways",
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pnrTripJsonLd) }}
+      />
       <section className="mx-auto max-w-content px-4 pb-10 pt-12 sm:px-6 sm:pt-16">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-light px-3 py-1 text-xs font-semibold text-brand">

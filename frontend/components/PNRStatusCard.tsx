@@ -81,12 +81,12 @@ export function PNRStatusCard({
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="font-mono text-sm text-ink-muted">PNR {status.pnr_number}</p>
-          <h3 className="mt-1 font-display text-xl font-semibold text-ink md:text-2xl">
+          <h2 className="mt-1 font-display text-xl font-semibold text-ink md:text-2xl">
             {status.train_name ?? "Train details"}{" "}
             <span className="font-body text-base font-normal text-ink-muted">
               {status.train_number ? `#${status.train_number}` : ""}
             </span>
-          </h3>
+          </h2>
         </div>
         {lead && <StatusBadge status={lead.current_status} />}
       </div>

@@ -38,6 +38,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${SITE_URL}/rac-ticket-rules`,
+      lastModified: GUIDES_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/chart-preparation-guide`,
+      lastModified: GUIDES_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/tatkal-booking-rules`,
+      lastModified: GUIDES_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/refund-and-tdr-guide`,
+      lastModified: GUIDES_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/about`,
+      lastModified: GUIDES_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    {
+      url: `${SITE_URL}/contact`,
+      lastModified: GUIDES_UPDATED,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
       url: `${SITE_URL}/privacy-policy`,
       lastModified: GUIDES_UPDATED,
       changeFrequency: "yearly",

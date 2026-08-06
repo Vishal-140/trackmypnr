@@ -9,7 +9,7 @@ import Script from 'next/script';
  * that are used by CookieConsent to enable or disable analytics based on user choice.
  */
 export function GoogleAnalytics() {
-  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-NG1S4KSNJF";
 
   // If no GA ID is configured, render nothing.
   if (!GA_MEASUREMENT_ID) return null;

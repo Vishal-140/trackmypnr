@@ -13,6 +13,7 @@ const NAV_LINKS = [
   { href: "/waitlist-types", label: "Waitlist Types" },
   { href: "/travel-classes", label: "Travel Classes" },
   { href: "/faq", label: "FAQ" },
+  { href: "/about", label: "About" },
 ];
 
 export function Header() {

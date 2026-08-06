@@ -67,7 +67,7 @@ export default function SavedPNRs({ onTrack, refresh = 0 }: SavedPNRsProps) {
 
   return (
     <div className="w-full max-w-2xl space-y-4">
-      <h3 className="font-display text-base font-semibold text-ink">Saved PNRs</h3>
+      <h2 className="font-display text-base font-semibold text-ink">Saved PNRs</h2>
       {saved.map((pnr) => (
         <div
           key={pnr.id}

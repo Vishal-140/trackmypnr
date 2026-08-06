@@ -103,12 +103,6 @@ const organizationJsonLd = {
   logo: `${SITE_URL}/logo.png`,
   description:
     "trackmypnr is an independent PNR status checking tool for Indian Railways passengers.",
-  contactPoint: {
-    "@type": "ContactPoint",
-    email: "",
-    contactType: "customer support",
-    availableLanguage: ["English", "Hindi"],
-  },
 };
 
 /** WebSite + SearchAction JSON-LD — enables Google's sitelink search box. */
@@ -142,20 +136,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-        
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NG1S4KSNJF"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'G-NG1S4KSNJF');
-            `,
-          }}
-        />
       </head>
       <body className="flex min-h-screen flex-col font-body">
         {/* Sitewide JSON-LD schemas */}

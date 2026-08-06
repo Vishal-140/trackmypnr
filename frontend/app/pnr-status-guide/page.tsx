@@ -246,6 +246,10 @@ export default function PnrStatusGuidePage() {
         ·{" "}
         <Link href="/faq" className="font-medium text-brand underline">
           Frequently Asked Questions
+        </Link>{" "}
+        ·{" "}
+        <Link href="/about" className="font-medium text-brand underline">
+          About Us
         </Link>
       </p>
     </article>

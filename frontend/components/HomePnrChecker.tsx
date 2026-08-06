@@ -84,34 +84,36 @@ export function HomePnrChecker({ initialPnr }: HomePnrCheckerProps = {}) {
         <PNRInputForm onSubmit={handleCheck} isLoading={isLoading} initialValue={initialPnr ?? ""} />
       </div>
 
-      {isLoading && (
-        <div className="w-full max-w-2xl">
-          <SkeletonLoader />
-          {slowNotice && (
-            <p className="mt-3 text-center text-sm text-ink-muted" role="status">
-              Still fetching — the status service can take a little longer than usual sometimes.
-              Hang tight.
-            </p>
-          )}
-        </div>
-      )}
+      <div className="w-full max-w-2xl min-h-[400px] flex flex-col items-center gap-6 transition-all duration-200">
+        {isLoading && (
+          <div className="w-full">
+            <SkeletonLoader />
+            {slowNotice && (
+              <p className="mt-3 text-center text-sm text-ink-muted" role="status">
+                Still fetching — the status service can take a little longer than usual sometimes.
+                Hang tight.
+              </p>
+            )}
+          </div>
+        )}
 
-      {!isLoading && error && (
-        <div
-          role="alert"
-          className="flex w-full max-w-2xl items-start gap-3 rounded-2xl border border-status-wl/30 bg-status-wl-bg p-4 text-sm text-status-wl"
-        >
-          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-          <p>{error}</p>
-        </div>
-      )}
+        {!isLoading && error && (
+          <div
+            role="alert"
+            className="flex w-full items-start gap-3 rounded-2xl border border-status-wl/30 bg-status-wl-bg p-4 text-sm text-status-wl"
+          >
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+            <p>{error}</p>
+          </div>
+        )}
 
-      {!isLoading && status && (
-        <>
-          <PNRStatusCard status={status} onSave={handleSave} isSaved={isSaved} isSaving={isSaving} />
-          <SavedPNRs onTrack={handleCheck} />
-        </>
-      )}
+        {!isLoading && status && (
+          <>
+            <PNRStatusCard status={status} onSave={handleSave} isSaved={isSaved} isSaving={isSaving} />
+            <SavedPNRs onTrack={handleCheck} refresh={savedRefresh} />
+          </>
+        )}
+      </div>
     </div>
   );
 }

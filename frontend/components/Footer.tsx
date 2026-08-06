@@ -26,6 +26,26 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/rac-ticket-rules" className="hover:text-brand">
+                  RAC Ticket Rules
+                </Link>
+              </li>
+              <li>
+                <Link href="/chart-preparation-guide" className="hover:text-brand">
+                  Chart Preparation Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/tatkal-booking-rules" className="hover:text-brand">
+                  Tatkal Rules
+                </Link>
+              </li>
+              <li>
+                <Link href="/refund-and-tdr-guide" className="hover:text-brand">
+                  Refund &amp; TDR Guide
+                </Link>
+              </li>
+              <li>
                 <Link href="/travel-classes" className="hover:text-brand">
                   Travel Classes
                 </Link>
@@ -38,8 +58,18 @@ export function Footer() {
             </ul>
           </nav>
           <div>
-            <p className="text-sm font-semibold text-ink">Legal</p>
+            <p className="text-sm font-semibold text-ink">Company &amp; Legal</p>
             <ul className="mt-2 space-y-2 text-sm text-ink-muted">
+              <li>
+                <Link href="/about" className="hover:text-brand">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-brand">
+                  Contact Us
+                </Link>
+              </li>
               <li>
                 <Link href="/privacy-policy" className="hover:text-brand">
                   Privacy Policy
