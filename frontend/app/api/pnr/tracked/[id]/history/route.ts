@@ -7,6 +7,7 @@
  *
  * Returns: HistoryEntry[]
  */
+export const runtime = 'nodejs';
 import type { QueryDocumentSnapshot } from "firebase-admin/firestore";
 import { NextRequest } from "next/server";
 import { errorJson, requireAuth } from "@/lib/pnr-utils";

@@ -6,6 +6,7 @@
  *
  * Returns: 204 No Content
  */
+export const runtime = 'nodejs';
 import { NextRequest } from "next/server";
 import { errorJson, requireAuth } from "@/lib/pnr-utils";
 import {
